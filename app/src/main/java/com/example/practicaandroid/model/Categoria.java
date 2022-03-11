@@ -10,6 +10,10 @@ public class Categoria {
     private String name;
     private int image;
 
+    public Categoria(String name, int image) {
+        this.name = name;
+        this.image = image;
+    }
 
     public Integer getId() {
         return id;
@@ -33,5 +37,10 @@ public class Categoria {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return name ;
     }
 }

@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.practicaandroid.R;
+import com.example.practicaandroid.database.RoomDatabase;
 import com.example.practicaandroid.model.Categoria;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,10 +21,9 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.View
     List<Categoria> datoLista;
     Context context;
 
+    public AdapterCategoria(Context context) {
 
-    public AdapterCategoria(List<Categoria> datoLista, Context context) {
-
-        this.datoLista = datoLista;
+        this.datoLista = RoomDatabase.getInstance(context).CateogoriaDao().selectAll();
         this.context = context;
     }
 
@@ -37,9 +38,8 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.View
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        Categoria categoria = new Categoria();
-        categoria.setName(datoLista.get(position).getName());
-        categoria.setImage(R.drawable.ic_launcher_background);
+        holder.itemTV.setText(datoLista.get(position).getName());
+        holder.itemIV.setImageResource(datoLista.get(position).getImage());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
+        ConstraintLayout layout;
         TextView itemTV;
         ImageView itemIV;
 

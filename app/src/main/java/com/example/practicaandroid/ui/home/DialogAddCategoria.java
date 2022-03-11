@@ -11,14 +11,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import com.example.practicaandroid.FragmentComunication;
+
 import com.example.practicaandroid.R;
+import com.example.practicaandroid.database.CategoriaDAO;
+import com.example.practicaandroid.database.RoomDatabase;
+import com.example.practicaandroid.model.Categoria;
 
 public class DialogAddCategoria extends DialogFragment {
     private View dialogView;
     //Atributos
     private EditText nameET;
-    private FragmentComunication fragmentComunication;
+    private CategoriaDAO categoriaDAO;
 
     public DialogAddCategoria() {
     }
@@ -43,7 +46,7 @@ public class DialogAddCategoria extends DialogFragment {
                                         Toast.makeText(getActivity(), "Category added", Toast.LENGTH_SHORT).show();
                                         String titulo = nameET.getText().toString();
                                         if (!titulo.equals("")) {
-                                            fragmentComunication.onCategoriaInsertItemSelected(titulo);
+                                            RoomDatabase.getInstance(getContext()).CateogoriaDao().insert(new Categoria(titulo,R.drawable.ic_launcher_background));
                                             dialogInterface.dismiss();
                                         }else{
                                             Toast.makeText(getActivity(), "Introduce todos los datos", Toast.LENGTH_SHORT).show();

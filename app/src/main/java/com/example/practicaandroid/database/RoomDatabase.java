@@ -8,21 +8,23 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import com.example.practicaandroid.model.Categoria;
+import com.example.practicaandroid.model.Receta;
+
 import org.jetbrains.annotations.NotNull;
 
-@Database(entities = {Categoria.class},version = 1)
-public abstract class CategoriaRoomDatabase extends androidx.room.RoomDatabase {
+@Database(entities = {Categoria.class, Receta.class},version = 1)
+public abstract class RoomDatabase extends androidx.room.RoomDatabase {
+    private static String DATABASE_NAME="databasee";
 
-    private static String DATABASE_NAME="basededatos";
     public abstract CategoriaDAO CateogoriaDao();
-    private static volatile CategoriaRoomDatabase INSTANCE;
+    public abstract RecetaDAO recetaDAO();
+    private static volatile RoomDatabase INSTANCE;
 
 
-
-    public synchronized static CategoriaRoomDatabase getInstance(final Context context){
+    public synchronized static RoomDatabase getInstance(final Context context){
         if(INSTANCE==null){
             INSTANCE= Room.databaseBuilder(context.getApplicationContext(),
-                    CategoriaRoomDatabase.class,DATABASE_NAME)
+                    RoomDatabase.class,DATABASE_NAME)
                     .allowMainThreadQueries()
                     .build();
         }

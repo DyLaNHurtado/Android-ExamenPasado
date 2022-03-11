@@ -10,7 +10,9 @@ import java.util.List;
 @Dao
 public interface CategoriaDAO {
     @Insert
-    public long insert(Categoria categoria);
+    long insert(Categoria categoria);
     @Query("SELECT * FROM categoria")
     List<Categoria> selectAll();
+    @Query("select * from categoria where name=:name")
+    Categoria getByNombre(String name);
 }
